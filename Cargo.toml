@@ -1,0 +1,19 @@
+[package]
+name = "bend_laws"
+version = "0.1.0"
+edition = "2024"
+description = "Bend-style fold/bend recursion schemes, their laws, and a bounded state-machine explorer, for no_std and std Rust"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/agustinustheo/bend-laws"
+readme = "README.md"
+keywords = ["bend", "recursion-schemes", "property-testing", "no-std", "model-checking"]
+categories = ["development-tools::testing", "no-std", "rust-patterns"]
+
+[dependencies]
+
+[features]
+default = ["std"]
+std = []
+
+[workspace]
+members = [".", "no-std-check"]

@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+          components: clippy, rustfmt
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Test (std)
+        run: cargo test --workspace
+      - name: Test (no std)
+        run: cargo test -p bend_laws --no-default-features
+      - name: Build for a no_std target (core + alloc only)
+        run: cargo build -p bend_laws -p no-std-check --no-default-features --target wasm32v1-none

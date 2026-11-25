@@ -1,0 +1,15 @@
+[package]
+name = "no-std-check"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+# A runtime-style crate: no_std by default, `std` opt-in, SCALE-encodable types.
+[dependencies]
+bend_laws = { path = "..", default-features = false }
+codec = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
+scale-info = { version = "2", default-features = false, features = ["derive"] }
+
+[features]
+default = ["std"]
+std = ["bend_laws/std", "codec/std", "scale-info/std"]
